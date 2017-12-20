@@ -77,8 +77,14 @@ J = (1/m)*sum(sum(-Y.*log(a3) - (1-Y).*log(1-(a3)))) + (lambda/(2*m))*(sum(sum(T
 
 % -------------------------------------------------------------
 
+sigma3 = a3 - Y;
+sigma2 = (sigma3*Theta2.*sigmoidGradient([ones(size(z2, 1), 1) z2]))(:, 2:end);
 
+delta1 = sigma2'*a1;
+delta2 = sigma3'*a2;
 
+Theta1_grad = delta1./m + (lambda/m)*[zeros(size(Theta1,1),1) Theta1(:, 2:end)];
+Theta2_grad = delta2./m + (lambda/m)*[zeros(size(Theta2,1),1) Theta2(:, 2:end)];
 
 % =========================================================================
 
